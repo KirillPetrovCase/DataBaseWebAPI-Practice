@@ -40,11 +40,11 @@ namespace DataBaseWebAPI.Controllers
             return new ObjectResult(selectedUser);
         }
 
-        //POST api/user
+        //POST ~/api/user
         [HttpPost]
         public async Task<ActionResult<User>> Post(User user)
         {
-            if (user == null) return BadRequest();
+            if (user is null) return BadRequest();
 
             _db.Users.Add(user);
             await _db.SaveChangesAsync();
@@ -52,11 +52,11 @@ namespace DataBaseWebAPI.Controllers
             return Ok(user);
         }
 
-        //PUT api/user/
+        //PUT ~/api/user/
         [HttpPut]
         public async Task<ActionResult<User>> Put(User sendedUser)
         {
-            if (sendedUser == null) return BadRequest();
+            if (sendedUser is null) return BadRequest();
 
             if (_db.Users.Any(user => user.Id == sendedUser.Id) is false) return NotFound();
 
@@ -66,7 +66,7 @@ namespace DataBaseWebAPI.Controllers
             return Ok(sendedUser);
         }
 
-        //DELETE api/user/5
+        //DELETE ~/api/user/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> Delete(int id)
         {

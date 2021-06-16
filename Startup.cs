@@ -28,6 +28,7 @@ namespace DataBaseWebAPI
             services.AddDbContext<UserContext>(options => options.UseSqlServer(connectionString));
 
             services.AddControllers();
+            services.AddSwaggerGen();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -35,7 +36,13 @@ namespace DataBaseWebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
+                app.UseSwagger();
+                app.UseSwaggerUI(setupAction => setupAction.SwaggerEndpoint("/swagger/v1/swagger.json", "UserDB WebAPI"));
             }
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseRouting();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
